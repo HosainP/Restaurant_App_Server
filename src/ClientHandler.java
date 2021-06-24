@@ -82,6 +82,7 @@ public class ClientHandler implements Runnable {
                     boolean response = dataBase.addUser(information);
                     if (response){
                         dos.writeBytes("true");
+                        dis.readLine();
                     }
                     else {
                         dos.writeBytes("false");
@@ -90,6 +91,30 @@ public class ClientHandler implements Runnable {
              catch (IOException e) {
                 e.printStackTrace();
             }
+                }
+                case "ugetRestaurantsList" : {
+                    try {
+                        System.out.println(DataBase.restaurants.size());
+                        int number = DataBase.restaurants.size();
+                        dos.writeBytes(number+"");
+                        for (int i = 0; i < number; i++) {
+                            Restaurant rest = DataBase.restaurants.get(i);
+                            dos.writeBytes(rest.name+":::"+rest.score+":::"+rest.address+":::");
+                            int numberOfFood = rest.foods.size();
+                            dos.writeBytes(numberOfFood+"");
+                            for (int j = 0; j < numberOfFood; j++) {
+                                Food food = rest.foods.get(j);
+                                dos.writeBytes(food.name + ":::" + food.details + ":::"+food.price+":::"+food.label+":::"+food.counter+":::"+food.numberOfSales);
+                            }
+                            int numberOfComment = rest.comments.size();
+                            for (int j = 0; j < numberOfComment; j++) {
+                                Comment comment = rest.comments.get(j);
+                                dos.writeBytes(comment.text + ":::" + comment.answer + ":::" + comment.star + ":::" + comment.user.getName());
+                            }
+                        }
+                    }catch (Exception e){
+                        System.out.println(e);
+                    }
                 }
             }
         }

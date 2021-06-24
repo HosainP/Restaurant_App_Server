@@ -2,12 +2,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 class User implements Serializable {
-    private String name;
-    private String password;
-    private String phoneNumber;
-    private String gender;
-    private int balance;
-    private Address address;
+     String name;
+     String password;
+     String phoneNumber;
+     String gender;
+     int balance;
+     Address address;
 
 
     public User(String name, String password, String phoneNumber, String gender, Address address) {
@@ -17,6 +17,10 @@ class User implements Serializable {
         this.gender = gender;
         this.balance = 0;
         this.address = address;
+
+    }
+
+    public User() {
 
     }
 

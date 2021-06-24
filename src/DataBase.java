@@ -4,7 +4,7 @@ import java.util.*;
 
 public class DataBase {
     public static Vector<Restaurant> restaurants = new Vector<>();
-    public static Vector<User> users = new Vector<>();
+    public  ArrayList<User> users = new ArrayList<>();
     FileOutputStream fos = null;
     FileInputStream fis = null;
     File file = new File("C:\\Users\\Saeed\\Desktop\\users.txt");
@@ -31,14 +31,14 @@ public class DataBase {
         }
         users.add(user);
         System.out.println(user);
-        //writeFile();
+        writeFile();
         return true;
     }
     void readFile()  {
         try (ObjectInputStream ois = new ObjectInputStream(fis)){
-            users = (Vector<User>) ois.readObject();
+            users = (ArrayList<User>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            users = new Vector<>();
+            users = new ArrayList<>();
         }
     }
     void writeFile() throws IOException {
