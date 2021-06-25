@@ -4,14 +4,13 @@ import java.util.*;
 
 public class DataBase {
     public static Vector<Restaurant> restaurants = new Vector<>();
-    public  ArrayList<User> users = new ArrayList<>();
+    public  Vector<User> users = new Vector<>();
     FileOutputStream fos = null;
     FileInputStream fis = null;
     File file = new File("C:\\Users\\Saeed\\Desktop\\users.txt");
     DataBase() throws FileNotFoundException {
         fos = new FileOutputStream(file, true);
         fis = new FileInputStream(file);
-
     }
     User findUser(String phoneNumber, String password){
         for (User user: users ) {
@@ -31,19 +30,36 @@ public class DataBase {
         }
         users.add(user);
         System.out.println(user);
+        fos = new FileOutputStream(file);
         writeFile();
         return true;
     }
     void readFile()  {
         try (ObjectInputStream ois = new ObjectInputStream(fis)){
-            users = (ArrayList<User>) ois.readObject();
+            users = (Vector<User>) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            users = new ArrayList<>();
+            users = new Vector<>();
         }
     }
     void writeFile() throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(users);
+    }
+    Restaurant findRestaurant (String phoneNumber){
+        for (Restaurant restaurant:restaurants) {
+            if (restaurant.phoneNumber == phoneNumber){
+                return restaurant;
+            }
+        }
+        return null;
+    }
+    User findUser (String phoneNumber){
+        for (User user:users) {
+            if (user.phoneNumber == phoneNumber){
+                return user;
+            }
+        }
+        return null;
     }
 
 }

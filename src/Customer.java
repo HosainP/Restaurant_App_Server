@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Vector;
 
 class User implements Serializable {
      String name;
@@ -8,9 +9,13 @@ class User implements Serializable {
      String gender;
      int balance;
      Address address;
-
+     Vector<Restaurant> favoriteRestaurant;
+     Vector <Comment> comments;
+     Vector<Order> previousOrder;
+     Vector<Order> activeOrders;
 
     public User(String name, String password, String phoneNumber, String gender, Address address) {
+        this();
         this.name = name;
         this.password = password;
         this.phoneNumber = phoneNumber;
@@ -21,7 +26,10 @@ class User implements Serializable {
     }
 
     public User() {
-
+        favoriteRestaurant = new Vector<>();
+        comments = new Vector<>();
+        previousOrder = new Vector<>();
+        activeOrders = new Vector<>();
     }
 
     public String getName() {

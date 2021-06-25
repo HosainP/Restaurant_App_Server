@@ -1,16 +1,20 @@
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class Restaurant {
     String name;
     String phoneNumber;
     String password;
+    String label;
     double score;
     Address address;
-    ArrayList<Food> foods = new ArrayList<>();
-    ArrayList<Comment> comments = new ArrayList<>();
-    // todo other parameters that a restaurant have
-    //  for example food list.
+    Vector<Food> foods;
+    Vector<Comment> comments;
 
+    Restaurant (){
+        foods = new Vector<>();
+        comments = new Vector<>();
+    }
     @Override
     public String toString() {
         return "Restaurant{" +

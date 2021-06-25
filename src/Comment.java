@@ -3,6 +3,7 @@ public class Comment {
     String answer;
     int star;
     User user;
+    boolean checked;
 
     @Override
     public String toString() {
