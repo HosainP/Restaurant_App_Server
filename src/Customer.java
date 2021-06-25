@@ -9,10 +9,11 @@ class User implements Serializable {
      String gender;
      int balance;
      Address address;
-     Vector<Restaurant> favoriteRestaurant;
-     Vector <Comment> comments;
-     Vector<Order> previousOrder;
-     Vector<Order> activeOrders;
+     ArrayList<Restaurant> favoriteRestaurant;
+     ArrayList <Comment> comments;
+     ArrayList<Order> previousOrders;
+     ArrayList<Order> activeOrders;
+     ArrayList<Food> cart;
 
     public User(String name, String password, String phoneNumber, String gender, Address address) {
         this();
@@ -26,10 +27,11 @@ class User implements Serializable {
     }
 
     public User() {
-        favoriteRestaurant = new Vector<>();
-        comments = new Vector<>();
-        previousOrder = new Vector<>();
-        activeOrders = new Vector<>();
+        favoriteRestaurant = new ArrayList<>();
+        comments = new ArrayList<>();
+        previousOrders = new ArrayList<>();
+        activeOrders = new ArrayList<>();
+        cart = new ArrayList<>();
     }
 
     public String getName() {

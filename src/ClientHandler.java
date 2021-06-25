@@ -102,7 +102,7 @@ public class ClientHandler implements Runnable {
                         information+="#";
                         for (int i = 0; i < number; i++) {
                             Restaurant rest = DataBase.restaurants.get(i);
-                            information+=rest.name+":::"+rest.score+":::"+rest.address.getAddressName()+":::"+rest.address.getLatitude()+":::"+rest.address.getLongitude()+":::"+rest.label;
+                            information+=rest.name+":::"+rest.score+":::"+rest.address.getAddressName()+":::"+rest.address.getLatitude()+":::"+rest.address.getLongitude()+":::"+rest.label+":::"+rest.phoneNumber;
                             information+="-";
                             int numberOfFood = rest.foods.size();
                             information+=numberOfFood;
@@ -135,22 +135,54 @@ public class ClientHandler implements Runnable {
                         String userPhoneNumber = message.split(":::")[0];
                         String restaurantPhoneNumber = message.split(":::")[1];
                         dataBase.findUser(userPhoneNumber).favoriteRestaurant.add(dataBase.findRestaurant(restaurantPhoneNumber));
+                        System.out.println("restaurant "+dataBase.findRestaurant(restaurantPhoneNumber).name + " added to favorite List user "+ dataBase.findUser(userPhoneNumber).name);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 }
-                case "removeFromFavorite" : {
+                case "uRemoveFromFavorite" : {
                     try {
                         String message = dis.readLine();
                         String userPhoneNumber = message.split(":::")[0];
                         String restaurantPhoneNumber = message.split(":::")[1];
                         dataBase.findUser(userPhoneNumber).favoriteRestaurant.remove(dataBase.findRestaurant(restaurantPhoneNumber));
+                        System.out.println("restaurant "+dataBase.findRestaurant(restaurantPhoneNumber).name + " removed from favorite List user "+ dataBase.findUser(userPhoneNumber).name);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 }
+                case "addComment" : {
+                    try {
+                        String message = dis.readLine();
+                        String userPhoneNumber = message.split(":::")[0];
+                        String restaurantPhoneNumber = message.split(":::")[1];
+                        Comment comment = new Comment(message.split(":::")[2], Integer.parseInt(message.split(":::")[3]), dataBase.findUser(userPhoneNumber), message.split(":::")[4]);
+                        dataBase.findRestaurant(restaurantPhoneNumber).comments.add(comment);
+                        dataBase.findUser(userPhoneNumber).comments.add(comment);
+                        System.out.println("comment added to "+ dataBase.findRestaurant(restaurantPhoneNumber).name + " and "+dataBase.findUser(userPhoneNumber).name+ " :)" );
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                case "changeBalance": {
+                    try {
+                        String message = dis.readLine();
+                        String userPhoneNumber = message.split(":::")[0];
+                        int newBalance = Integer.parseInt(message.split(":::")[1]);
+                        dataBase.findUser(userPhoneNumber).balance = newBalance;
+                        System.out.println("user " + dataBase.findUser(userPhoneNumber).name + " increase his balance to "+ newBalance);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            try {
+                dataBase.writeFile();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

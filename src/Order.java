@@ -1,7 +1,8 @@
 import javax.xml.crypto.Data;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Order {
+public class Order implements Serializable {
     Data dateTime;
     static int trackingNumber = 5000;
     Restaurant restaurant;

@@ -4,7 +4,7 @@ import java.util.*;
 
 public class DataBase {
     public static Vector<Restaurant> restaurants = new Vector<>();
-    public  Vector<User> users = new Vector<>();
+    public  ArrayList<User> users = new ArrayList<>();
     FileOutputStream fos = null;
     FileInputStream fis = null;
     File file = new File("C:\\Users\\Saeed\\Desktop\\users.txt");
@@ -36,18 +36,19 @@ public class DataBase {
     }
     void readFile()  {
         try (ObjectInputStream ois = new ObjectInputStream(fis)){
-            users = (Vector<User>) ois.readObject();
+            users = (ArrayList<User>)  ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
-            users = new Vector<>();
+            users = new ArrayList<>();
         }
     }
     void writeFile() throws IOException {
+        fos = new FileOutputStream(file);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(users);
     }
     Restaurant findRestaurant (String phoneNumber){
         for (Restaurant restaurant:restaurants) {
-            if (restaurant.phoneNumber == phoneNumber){
+            if (restaurant.phoneNumber.equals(phoneNumber)){
                 return restaurant;
             }
         }
@@ -55,7 +56,7 @@ public class DataBase {
     }
     User findUser (String phoneNumber){
         for (User user:users) {
-            if (user.phoneNumber == phoneNumber){
+            if (user.phoneNumber.equals(phoneNumber)){
                 return user;
             }
         }

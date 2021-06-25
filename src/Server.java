@@ -27,7 +27,7 @@ public class Server {
         comment.user = u;
         restaurant.comments.add(comment);
         restaurant.label = "PIZZA";
-        DataBase.restaurants.add(restaurant);
+        restaurant.phoneNumber = "09132546847";
         DataBase.restaurants.add(restaurant);
         System.out.println(restaurant);
         ServerSocket ss = new ServerSocket(8080);
