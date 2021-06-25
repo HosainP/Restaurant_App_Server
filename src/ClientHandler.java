@@ -19,8 +19,11 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
+
         String command = "";
         Restaurant theRestaurant = new Restaurant();
+        String restaurantInfo = "";
+
         while (true) {
             try {
                 command = dis.readLine();

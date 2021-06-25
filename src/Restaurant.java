@@ -9,6 +9,19 @@ public class Restaurant {
     ArrayList<Food> foods = new ArrayList<>(); // setting is done
     ArrayList<Comment> comments = new ArrayList<>(); // setting is done
 
+    Restaurant(){
+
+    }
+
+    Restaurant(String name, String phoneNumber, String password, double score, ArrayList<Food> foods, ArrayList<Comment> comments) { //todo address
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.score = score;
+        this.foods = foods;
+        this.comments = comments;
+    }
+
     @Override
     public String toString() {
         return "Restaurant{" +

@@ -199,6 +199,39 @@ public class Login {
     Restaurant getRestaurant() {
         return this.restaurant;
     }
+
+    String getName(){
+        return this.restaurant.name;
+    }
+
+    String getPhoneNumber(){
+        return this.restaurant.phoneNumber;
+    }
+
+    String getPassword(){
+        return this.restaurant.password;
+    }
+
+    String getScore(){
+        return String.valueOf(this.restaurant.score);
+    }
+
+    String getAddress(){
+        return this.restaurant.address.toString(); //todo it's wrong
+    }
+
+    String getFoods(){
+        String allOfFoods = "";
+        for (Food f : this.restaurant.foods){
+            String thisFood = "";
+
+        }
+        return allOfFoods; //todo
+    }
+
+    String getComments(){
+        return ""; //todo
+    }
 }
 
 class RestaurantNumAndPass {
