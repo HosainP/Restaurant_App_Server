@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -19,7 +20,7 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         String command = "";
-        Restaurant myRestaurant = new Restaurant();
+        Restaurant theRestaurant = new Restaurant();
         while (true) {
             try {
                 command = dis.readLine();
@@ -27,7 +28,13 @@ public class ClientHandler implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            if (command == null) {
+                command = "do nothing";
+            }
             switch (command) {
+                case "do nothing":{
+                    break;
+                }
                 case "hLogin": {
                     String phoneNumber = "";
                     String password = "";
@@ -38,7 +45,17 @@ public class ClientHandler implements Runnable {
                         e.printStackTrace();
                     }
                     Login login = new Login(phoneNumber, password, dos);
+                    theRestaurant = login.getRestaurant();
                     System.out.println("login function is done.");
+
+                    // now it's time to send information to the app to make the look.
+
+//                    try {
+//                        dos.writeBytes(theRestaurant.name);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+
                     break;
                 }
                 case "hRegister": {

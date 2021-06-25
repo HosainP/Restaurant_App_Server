@@ -5,12 +5,15 @@ import java.io.Writer;
 
 public class Register {
     Register(String phoneNumber, String name, String password, String foodCategory) {
+        //
         File RestaurantFolder = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber);
         boolean dirCreated = RestaurantFolder.mkdir();
         if (dirCreated) {
             System.out.println("restaurant folder created.");
         }
+        //
 
+        //
         File nameOfRestaurant = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\name.txt");
         try {
             nameOfRestaurant.createNewFile();
@@ -28,7 +31,9 @@ public class Register {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //
 
+        //
         File passwordOfRestaurant = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\password.txt");
         try {
             passwordOfRestaurant.createNewFile();
@@ -46,7 +51,9 @@ public class Register {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //
 
+        //
         File numberOfRestaurant = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\phoneNumber.txt");
         try {
             numberOfRestaurant.createNewFile();
@@ -64,7 +71,9 @@ public class Register {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //
 
+        //
         File categoryOfRestaurant = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\foodCategory.txt");
         try {
             categoryOfRestaurant.createNewFile();
@@ -82,12 +91,65 @@ public class Register {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //
 
+        //
+        File scoreOfRestaurant = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\score.txt");
+        try {
+            scoreOfRestaurant.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (scoreOfRestaurant.exists()) {
+            System.out.println("score file created.");
+        }
+
+        try { //making the score of the restaurant file.
+            Writer writer = new FileWriter(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\score.txt");
+            writer.write("not rated yet.");
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //
+
+        //
+        File addressOfRestaurant = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\address.txt");
+        try {
+            addressOfRestaurant.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addressOfRestaurant.exists()) {
+            System.out.println("address file created.");
+        }
+
+        try { //making the address of the restaurant file.
+            Writer writer = new FileWriter(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\address.txt");
+            writer.write("this file should contain address of the resturant.");
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //
+
+        //
         File foodsFolder = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\Foods");
         boolean foodsCreated = foodsFolder.mkdir();
         if (foodsCreated) {
             System.out.println("foods folder created.");
         }
+        //
+
+        //
+        File commentsFolder = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\Comments");
+        boolean commentsCreated = commentsFolder.mkdir();
+        if (commentsCreated) {
+            System.out.println("comments folder created.");
+        }
+        //
+
+
 
         // now we add the phone number and the password of the restaurant to the names file.
         File namesFile = new File("C:\\Users\\SaBa User\\IdeaProjects\\Restaurant App Server\\DataBase\\RestaurantNames.txt");
