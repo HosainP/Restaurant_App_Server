@@ -27,6 +27,17 @@ public class ClientHandler implements Runnable {
         Restaurant theRestaurant = new Restaurant();
         String restaurantInfo = "";
         while (true) {
+
+            // overwriting the files here.
+
+            for (Restaurant r : dataBase.restaurants) {
+                String address = Constants.hDataBaseAddress + "\\Restaurants\\" + r.name + "-" + r.phoneNumber;
+                RewriteRestaurant rewriteRestaurant = new RewriteRestaurant(r, address);
+                rewriteRestaurant.Rewrite();
+            }
+
+            //
+
             try {
                 command = dis.readLine();
                 System.out.println("new command received: " + command);

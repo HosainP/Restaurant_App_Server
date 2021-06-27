@@ -1,5 +1,7 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 class User implements Serializable {
@@ -13,7 +15,7 @@ class User implements Serializable {
     ArrayList <Comment> comments;
     ArrayList<Order> previousOrders;
     ArrayList<Order> activeOrders;
-    ArrayList<Food> cart;
+    Map<Restaurant, Food> cart;
 
     public User(String name, String password, String phoneNumber, String gender, Address address) {
         this();
@@ -31,7 +33,7 @@ class User implements Serializable {
         comments = new ArrayList<>();
         previousOrders = new ArrayList<>();
         activeOrders = new ArrayList<>();
-        cart = new ArrayList<>();
+        cart = new HashMap<>();
     }
 
     public String getName() {

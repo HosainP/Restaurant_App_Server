@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class Restaurant implements Serializable {
-    String name;
-    String phoneNumber;
-    String password;
-    String label;
-    double score;
-    Address address;
-    ArrayList<Food> foods;
-    ArrayList<Comment> comments;
-    String discountCode;
+    String name = "";
+    String phoneNumber = "";
+    String password = "";
+    String label = "";
+    double score = 0.0;
+    Address address = new Address("name", 0.0, 0.0);
+    ArrayList<Food> foods = new ArrayList<>();
+    ArrayList<Comment> comments = new ArrayList<>();
+    String discountCode = "";
 
-    Restaurant (){
+    Restaurant() {
         foods = new ArrayList<>();
         comments = new ArrayList<>();
     }

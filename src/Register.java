@@ -168,7 +168,6 @@ public class Register implements Serializable {
         //
 
 
-
         // now we add the phone number and the password of the restaurant to the names file.
         File namesFile = new File("C:\\Users\\SaBa User\\IdeaProjects\\Restaurant App Server\\DataBase\\RestaurantNames.txt");
         try {
