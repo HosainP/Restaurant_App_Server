@@ -132,10 +132,88 @@ public class ClientHandler implements Runnable {
                     }
                     try {
                         Register register = new Register(phoneNumber, name, password, foodCategory);
+                        System.out.println("folders made");
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
                     System.out.println("Registration completed.");
+
+                    /////////////////
+                    Login login = new Login(phoneNumber, password, dos);
+                    System.out.println("login function is done.");
+                    theRestaurant = login.getRestaurant();
+                    System.out.println("login function is done.");
+
+                    // now it's time to send information to the app to make the look.
+
+                    theRestaurant = login.getRestaurant(); //this restaurant info should be sent to the app.
+                    String info = ":::::" + theRestaurant.name + ":::::" + theRestaurant.phoneNumber + ":::::" + theRestaurant.password + ":::::";
+                    info = info + theRestaurant.score + ":::::" + theRestaurant.label + ":::::" + theRestaurant.address + ":::::";
+                    info = info + theRestaurant.discountCode + ":::::";
+                    for (Food f : theRestaurant.foods) {
+                        info = info + f.name + ":::" + f.details + ":::" + f.label + ":::" + f.price + ":::" + f.numberOfSales + ":::" + f.counter + ":::" + f.isAvailable;
+                        info = info + "::::";
+                    }
+                    info = info + ":";
+                    for (Comment c : theRestaurant.comments) {
+                        info = info + c.text + ":::" + c.answer + ":::" + c.userName + ":::" + c.star + ":::" + c.checked;
+                        info = info + "::::";
+                    }
+                    info = info + ":";
+                    for (Order o : theRestaurant.orders) {
+                        info = info + o.year + ":::" + o.month + ":::" + o.day + ":::" + o.time + ":::" + o.userName + ":::" + o.getTrackingNumber() + ":::";
+                        info = info + o.sum + ":::";
+                        for (Food f : o.orders) {
+                            info = info + f.name + ":" + f.details + ":" + f.label + ":" + f.price + ":" + f.numberOfSales + ":" + f.counter + ":" + f.isAvailable;
+                            info = info + "::";
+                        }
+                        info = info + "::";
+                    }
+                    info = info + ":";
+
+                    //now the string to send to the app is ready as info.
+
+                    if (login.isAccepted) {
+                        try {
+                            dos.writeBytes("true" + info);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        try {
+                            dos.writeBytes("false");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    /////////////////
+
+                    break;
+                }
+                case "hAddFood": {
+                    String foodName = "";
+                    String foodDetails = "";
+                    String foodPrice = "";
+                    try {
+                        foodName = dis.readLine();
+                        foodDetails = dis.readLine();
+                        foodPrice = dis.readLine();
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                    System.out.println(foodName + " " + foodDetails + " " + foodPrice);
+                    File foodFolder = new File(Constants.hDataBaseAddress + "\\Restaurants\\hosain-09135751055\\Foods");
+                    String[] foods = foodFolder.list();
+                    File newFood = new File(Constants.hDataBaseAddress + "\\Restaurants\\hosain-09135751055\\Foods\\food" + (foods.length + 1) + ".txt");
+                    try{
+                        newFood.createNewFile();
+                        Writer writer = new FileWriter(Constants.hDataBaseAddress + "\\Restaurants\\hosain-09135751055\\Foods\\food" + (foods.length + 1) + ".txt");
+                        String food = "0:" + foodName + ":" + foodDetails + ":" + foodPrice + ":" + "1" + ":" + "label" + ":" + "true";
+                        writer.write(food);
+                        writer.close();
+                    }catch (Exception e){
+                        System.out.println(e);
+                    }
                     break;
                 }
                 case "uLogin": {

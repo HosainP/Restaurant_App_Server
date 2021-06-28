@@ -8,7 +8,7 @@ public class Order implements Serializable {
     String day;
     String time; // num:num
     String userName;
-    static int trackingNumber = 5000;
+    int trackingNumber = 5000;
     Restaurant restaurant;
     int sum = 0;
     ArrayList<Food> orders;
@@ -24,7 +24,7 @@ public class Order implements Serializable {
         for(int i=0; i<orders.size();i++){
             sum+=orders.get(i).price*orders.get(i).counter;
         }
-        trackingNumber++;
+        this.trackingNumber = Integer.parseInt(day+sum);
     }
 
     Order(String year,String month, String day, String time, String userName, ArrayList<Food> orders){
@@ -38,7 +38,7 @@ public class Order implements Serializable {
         for(int i=0; i<orders.size();i++){
             sum+=orders.get(i).price*orders.get(i).counter;
         }
-        trackingNumber++;
+        this.trackingNumber = Integer.parseInt(day+sum);
     }
     public String getDate(){
         return year+ "/" +month+ "/" +day;

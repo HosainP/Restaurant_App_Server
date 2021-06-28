@@ -4,6 +4,24 @@ import java.util.Scanner;
 
 public class Register implements Serializable {
     Register(String phoneNumber, String name, String password, String foodCategory) throws FileNotFoundException {
+
+        // now we add the phone number and the password of the restaurant to the names file.
+        File namesFile = new File("C:\\Users\\SaBa User\\IdeaProjects\\Restaurant App Server\\DataBase\\RestaurantNames.txt");
+        String oldFile = "";
+        Scanner scanner = new Scanner(namesFile);
+        while (scanner.hasNext()) {
+            oldFile = oldFile + scanner.next();
+        }
+        oldFile = oldFile + phoneNumber + ":" + password + ":::";
+        try {
+            Writer writer = new FileWriter(namesFile);
+            writer.write(oldFile);
+            writer.close();
+            System.out.println("phoneNumber and password added to the names file.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         //
         File RestaurantFolder = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber);
         boolean dirCreated = RestaurantFolder.mkdir();
@@ -105,7 +123,7 @@ public class Register implements Serializable {
 
         try { //making the score of the restaurant file.
             Writer writer = new FileWriter(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\score.txt");
-            writer.write("not rated yet.");
+            writer.write("0.0");
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,7 +143,7 @@ public class Register implements Serializable {
 
         try { //making the address of the restaurant file.
             Writer writer = new FileWriter(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\address.txt");
-            writer.write("this file should contain address of the resturant.");
+            writer.write("here:0.0:0.0");
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,6 +176,16 @@ public class Register implements Serializable {
         if (foodsCreated) {
             System.out.println("foods folder created.");
         }
+
+        File theFood = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\Foods\\food1.txt");
+        try {
+            theFood.createNewFile();
+            Writer writer = new FileWriter(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\Foods\\food1.txt");
+            writer.write("53:food1:this is the details:25000:123:this is label:true");
+            writer.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         //
 
         //
@@ -166,25 +194,38 @@ public class Register implements Serializable {
         if (commentsCreated) {
             System.out.println("comments folder created.");
         }
+
+        File theComment = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\Comments\\comment1.txt");
+        try {
+            theComment.createNewFile();
+            Writer writer = new FileWriter(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\Comments\\comment1.txt");
+            writer.write("food is good:thanks for your comment:5:Hosain Pishgahi:true");
+            writer.close();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        //
+
+        //
+        File ordersFolder = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\Orders");
+        boolean ordersCreated = ordersFolder.mkdir();
+        if (ordersCreated) {
+            System.out.println("orders folder created.");
+        }
+
+        File theOrder = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\Orders\\order1.txt");
+        try {
+            theOrder.createNewFile();
+            Writer writer = new FileWriter(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber + "\\Orders\\order1.txt");
+            writer.write("2020:::12:::30:::15:::30:::username:::20:kebab:soltani:5000:35:kebabi:true::35:jooje:chicken:52000:25:foodLabel:false::");
+            writer.close();
+        }catch (Exception e){
+            System.out.println(e);
+        }
         //
 
 
-        // now we add the phone number and the password of the restaurant to the names file.
-        File namesFile = new File("C:\\Users\\SaBa User\\IdeaProjects\\Restaurant App Server\\DataBase\\RestaurantNames.txt");
-        String oldFile = "";
-        Scanner scanner = new Scanner(namesFile);
-        while (scanner.hasNext()) {
-            oldFile = oldFile + scanner.next();
-        }
-        oldFile = oldFile + phoneNumber + ":" + password + ":::";
-        try {
-            Writer writer = new FileWriter(namesFile);
-            writer.write(oldFile);
-            writer.close();
-            System.out.println("phoneNumber and password added to the names file.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
     }
 }

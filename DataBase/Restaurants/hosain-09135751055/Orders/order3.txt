@@ -1,0 +1,1 @@
+2020:::12:::12:::15:::30:::Saeed Zare:::20:Pizza:fastFood:5000:35:kebabi:true::35:hamburger:chicken:52000:25:foodLabel:true::
