@@ -30,11 +30,11 @@ public class ClientHandler implements Runnable {
 
             // overwriting the files here.
 
-            for (Restaurant r : dataBase.restaurants) {
-                String address = Constants.hDataBaseAddress + "\\Restaurants\\" + r.name + "-" + r.phoneNumber;
-                RewriteRestaurant rewriteRestaurant = new RewriteRestaurant(r, address);
-                rewriteRestaurant.Rewrite();
-            }
+//            for (Restaurant r : dataBase.restaurants) {
+//                String address = Constants.hDataBaseAddress + "\\Restaurants\\" + r.name + "-" + r.phoneNumber;
+//                RewriteRestaurant rewriteRestaurant = new RewriteRestaurant(r, address);
+//                rewriteRestaurant.Rewrite();
+//            }
 
             //
 
@@ -81,6 +81,16 @@ public class ClientHandler implements Runnable {
                         info = info + "::::";
                     }
                     info = info + ":";
+                    for (Order o : theRestaurant.orders) {
+                        info = info + o.year + ":::" + o.month + ":::" + o.day + ":::" + o.time + ":::" + o.userName + ":::" + o.getTrackingNumber() + ":::";
+                        info = info + o.sum + ":::";
+                        for (Food f : o.orders) {
+                            info = info + f.name + ":" + f.details + ":" + f.label + ":" + f.price + ":" + f.numberOfSales + ":" + f.counter + ":" + f.isAvailable;
+                            info = info + "::";
+                        }
+                        info = info + "::";
+                    }
+                    info = info + ":";
 
                     //now the string to send to the app is ready as info.
 
@@ -120,7 +130,11 @@ public class ClientHandler implements Runnable {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    Register register = new Register(phoneNumber, name, password, foodCategory);
+                    try {
+                        Register register = new Register(phoneNumber, name, password, foodCategory);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println("Registration completed.");
                     break;
                 }

@@ -3,9 +3,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.Vector;
+import java.util.*;
 
 public class Login implements Serializable {
 
@@ -70,7 +68,7 @@ public class Login implements Serializable {
         setDiscountCode(theAddress);
         setFoods(theAddress + "\\Foods");
         setComments(theAddress + "\\Comments");
-
+        setOrders(theAddress + "\\Orders");
     }
 
     void setName(String theAddress) {
@@ -240,6 +238,34 @@ public class Login implements Serializable {
             this.restaurant.comments.add(new Comment(parts[0].trim(), parts[1].trim(), Integer.parseInt(parts[2].trim()), parts[3], checked));
         }
         System.out.println("comment list is set: " + this.restaurant.comments + " - toString method is not right.");
+    }
+
+    void setOrders(String theAddress) {
+        File file = new File(theAddress);
+        String[] fileNames = file.list();
+        for (String name : fileNames) {
+            String orderAddress = theAddress + "\\" + name;
+            File orderFile = new File(orderAddress);
+            Scanner scanner = null;
+            try {
+                scanner = new Scanner(orderFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            String orderInfo = "";
+            while (scanner.hasNext()) {
+                orderInfo = orderInfo + " " + scanner.next();
+            }
+            String[] parts = orderInfo.split(":::");
+            String[] foods = parts[6].split("::");
+            List<Food> foodList = new ArrayList<>();
+            for (int i = 0; i < foods.length; i++) {
+                String[] foodParts = foods[i].split(":");
+                foodList.add(new Food(Integer.parseInt(foodParts[0]), foodParts[1], foodParts[2], Integer.parseInt(foodParts[3]), Integer.parseInt(foodParts[4]), foodParts[5], foodParts[6]));
+            }
+            this.restaurant.orders.add(new Order(parts[0], parts[1], parts[2], parts[3] + parts[4], parts[5], (ArrayList<Food>) foodList));
+        }
+        System.out.println("order list is set: " + this.restaurant.orders + " - toString method is not right.");
     }
 
     Restaurant getRestaurant() {

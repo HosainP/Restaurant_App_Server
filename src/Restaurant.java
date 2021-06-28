@@ -12,6 +12,7 @@ public class Restaurant implements Serializable {
     Address address = new Address("name", 0.0, 0.0);
     ArrayList<Food> foods = new ArrayList<>();
     ArrayList<Comment> comments = new ArrayList<>();
+    ArrayList<Order> orders = new ArrayList<>();
     String discountCode = "";
 
     Restaurant() {

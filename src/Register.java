@@ -1,8 +1,9 @@
 
 import java.io.*;
+import java.util.Scanner;
 
 public class Register implements Serializable {
-    Register(String phoneNumber, String name, String password, String foodCategory) {
+    Register(String phoneNumber, String name, String password, String foodCategory) throws FileNotFoundException {
         //
         File RestaurantFolder = new File(Constants.hDataBaseAddress + "\\Restaurants\\" + name + "-" + phoneNumber);
         boolean dirCreated = RestaurantFolder.mkdir();
@@ -170,9 +171,15 @@ public class Register implements Serializable {
 
         // now we add the phone number and the password of the restaurant to the names file.
         File namesFile = new File("C:\\Users\\SaBa User\\IdeaProjects\\Restaurant App Server\\DataBase\\RestaurantNames.txt");
+        String oldFile = "";
+        Scanner scanner = new Scanner(namesFile);
+        while (scanner.hasNext()) {
+            oldFile = oldFile + scanner.next();
+        }
+        oldFile = oldFile + phoneNumber + ":" + password + ":::";
         try {
-            Writer writer = new FileWriter(namesFile, true);
-            writer.write(phoneNumber + ":" + password + ":::");
+            Writer writer = new FileWriter(namesFile);
+            writer.write(oldFile);
             writer.close();
             System.out.println("phoneNumber and password added to the names file.");
         } catch (Exception e) {
